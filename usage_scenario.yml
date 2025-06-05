@@ -19,8 +19,14 @@ flow:
         command: python3 /app/loop.py
         note: running python
       - type: console
+        command: /app/hash_unoptimized --unrolled
+        note: running unoptimized c unrolled
+      - type: console
         command: /app/hash_unoptimized
-        note: running unoptimized c
+        note: running unoptimized c normal
+      - type: console
+        command: /app/hash_optimized --unrolled
+        note: running optimized c unrolled
       - type: console
         command: /app/hash_optimized
-        note: running optimized c
+        note: running optimized c normal

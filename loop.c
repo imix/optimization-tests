@@ -40,23 +40,34 @@ void loop_unrolled() {
         sha256_random_block();
     }
 }
+int main(int argc, char *argv[]) {
+    int use_unrolled = 0;
 
-int main() {
+    // Loop through all arguments
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "--unrolled") == 0) {
+            use_unrolled = 1;
+        }
+    }
+
     srand(time(NULL)); // Seed random generator
-
     struct timespec start, end;
 
-    // loop_not_unrolled
-    clock_gettime(CLOCK_MONOTONIC, &start);
-    loop_not_unrolled();
-    clock_gettime(CLOCK_MONOTONIC, &end);
-    print_time("loop_not_unrolled", start, end);
-
-    // loop_unrolled
-    clock_gettime(CLOCK_MONOTONIC, &start);
-    loop_unrolled();
-    clock_gettime(CLOCK_MONOTONIC, &end);
-    print_time("loop_unrolled", start, end);
+    if (use_unrolled) {
+        printf("Running unrolled loop\n");
+        // loop_not_unrolled
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        loop_not_unrolled();
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        print_time("loop_not_unrolled", start, end);
+    } else {
+        printf("Running normal loop\n");
+        // loop_unrolled
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        loop_unrolled();
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        print_time("loop_unrolled", start, end);
+    }
 
     return 0;
 }
