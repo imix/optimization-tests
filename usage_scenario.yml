@@ -10,12 +10,10 @@ services:
       dockerfile: Dockerfile
     container_name: cpu-load-container
     image: cpu-load-container:latest
-    stdin_open: true     # keep container open for interactive use
-    tty: true            # allocate a pseudo-TTY
 
 flow:
   - name: Loop-Test
-    container: cpu-load
+    container: cpu-load-container
     commands:
       - type: console
         command: python3 loop.py
