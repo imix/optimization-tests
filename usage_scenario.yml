@@ -19,8 +19,8 @@ flow:
         command: python3 loop.py
         note: running python
       - type: console
-        command: has_unoptimized
+        command: hash_unoptimized
         note: running unoptimized c
       - type: console
-        command: has_optimized
+        command: hash_optimized
         note: running optimized c
