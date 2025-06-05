@@ -1,0 +1,28 @@
+---
+name: Run zenload
+author: Stefan Aeschbacher
+description: runs different loop optimization tests in python and c
+architecture: linux
+services:
+  cpu-load:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cpu-load-container
+    image: cpu-load-container:latest
+    stdin_open: true     # keep container open for interactive use
+    tty: true            # allocate a pseudo-TTY
+
+flow:
+  - name: Loop-Test
+    container: cpu-load
+    commands:
+      - type: console
+        command: python3 loop.py
+        note: running python
+      - type: console
+        command: has_unoptimized
+        note: running unoptimized c
+      - type: console
+        command: has_optimized
+        note: running optimized c
