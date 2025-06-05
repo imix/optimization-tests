@@ -1,0 +1,7 @@
+services:
+  cpu-load:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cpu-load-container
+    image: cpu-load-container:latest

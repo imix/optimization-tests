@@ -3,24 +3,24 @@ name: Run zenload
 author: Stefan Aeschbacher
 description: runs different loop optimization tests in python and c
 architecture: linux
+
+compose-file: !include compose.yml
+
 services:
   cpu-load:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: cpu-load-container
-    image: cpu-load-container:latest
+    setup-commands:
+      - command: sleep 20
 
 flow:
   - name: Loop-Test
     container: cpu-load-container
     commands:
       - type: console
-        command: python3 loop.py
+        command: python3 /app/loop.py
         note: running python
       - type: console
-        command: hash_unoptimized
+        command: /app/hash_unoptimized
         note: running unoptimized c
       - type: console
-        command: hash_optimized
+        command: /app/hash_optimized
         note: running optimized c
